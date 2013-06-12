@@ -59,7 +59,8 @@ for f=1:size(FileName,2)
 
             for z=9:2:size(thisline,2)
                 try
-                    out.(thisline{8}).(thisline{z}){y,1} = str2double(thisline(z+1));
+                    out.(name).(thisline{z}){y,1} = time;
+                    out.(name).(thisline{z}){y,2} = str2double(thisline(z+1));
                 catch
                     continue;
                 end
