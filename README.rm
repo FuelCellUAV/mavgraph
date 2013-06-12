@@ -1,0 +1,1 @@
+This MATLAB programme decodes an APMMissionPlanner .tlog which has been converted to .csv using APMMissionPlanner into a structured format for the user to then reference and graph.

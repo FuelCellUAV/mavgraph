@@ -7,6 +7,7 @@ clear all
 fid = fopen(strcat(PathName,FileName));
 file = textscan(fid,'%s','delimiter','\n');
 fclose(fid);
+disp(strcat('Decoding ./',FileName));
 %clear fid PathName FileName FilterIndex ans
 
 %% Decode & packetise
@@ -58,9 +59,9 @@ end
 %clearvars -except out
 
 %% Save and end
-save(strrep(FileName,'csv',''),'-struct','out')
-disp(strcat('Saved to /',FileName))
-clear
+save(strrep(FileName,'csv',''),'-struct','out');
+disp(strcat('Saved to ./',FileName,'.mat'));
+clear all
 
 %% End
 disp "Done!"
