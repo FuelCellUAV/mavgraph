@@ -3,13 +3,14 @@ clear all
 
 %% Get log file
 [FileName,PathName,FilterIndex] = uigetfile('C:\Users\Simon\Dropbox\PhD\Flight tests\*.csv','MAVLink csv file');
-
+timeStart = cputime;
 fid = fopen(strcat(PathName,FileName));
 file = textscan(fid,'%s','delimiter','\n');
 fclose(fid);
+disp(strcat('Decoding ./',FileName));
 %clear fid PathName FileName FilterIndex ans
 
-%% Decode & packetise
+%% Decode file & packetise
 data = struct;
 for x=1:size(file{1,1},1)
     oldline = file{1,1}{x,1};
@@ -20,7 +21,7 @@ for x=1:size(file{1,1},1)
     
     try
         len = size(data.(newline{8}),1) + 1;
-    catch exception
+    catch
         len = 1;
     end
     
@@ -29,6 +30,8 @@ for x=1:size(file{1,1},1)
     end
     % all packets IDs are now listed as a variable in the "data" structure
 end
+timeFile = cputime-timeStart;
+disp(strcat('File decoded (',timeFile,'secs)'));
 %clearvars -except data
 
 %% Decode packets
@@ -42,6 +45,9 @@ for x=1:size(packetlist,1) % find variable in structure
         try
             time = datenum(strrep(thisline(1,1),'T',' '));
             name = thisline{8};
+            if size(name,2) <= 1
+                continue
+            end
         catch
             continue
         end
@@ -56,10 +62,12 @@ for x=1:size(packetlist,1) % find variable in structure
     end
 end
 %clearvars -except out
+timeDecode = cputime-timeFile;
+disp(strcat('Packets decoded (',timeDecode,'secs)'));
 
 %% Save and end
-save(strrep(FileName,'csv',''),'-struct','out');
-disp(strcat('Saved to ./',FileName,'.mat'));
+save(strrep(FileName,'csv','mat'),'-struct','out');
+disp(strcat('Saved to ./',FileName,', (',cpuTime-timeStart,'secs total)'));
 clear all
 
 %% End
