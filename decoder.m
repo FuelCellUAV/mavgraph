@@ -31,7 +31,8 @@ for x=1:size(file{1,1},1)
     % all packets IDs are now listed as a variable in the "data" structure
 end
 timeFile = cputime-timeStart;
-disp(strcat('File decoded (',timeFile,'secs)'));
+disp(strcat('File decoded (',num2str(timeFile,0),'secs)'));
+disp('Now decoding packets...');
 %clearvars -except data
 
 %% Decode packets
@@ -63,11 +64,11 @@ for x=1:size(packetlist,1) % find variable in structure
 end
 %clearvars -except out
 timeDecode = cputime-timeFile;
-disp(strcat('Packets decoded (',timeDecode,'secs)'));
+disp(strcat('Packets decoded (',num2str(timeDecode,0),'secs)'));
 
 %% Save and end
 save(strrep(FileName,'csv','mat'),'-struct','out');
-disp(strcat('Saved to ./',FileName,', (',cpuTime-timeStart,'secs total)'));
+disp(strcat('Saved to ./',FileName,', (',num2str(cputime-timeStart,0),'secs total)'));
 clear all
 
 %% End
