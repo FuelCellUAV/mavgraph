@@ -6,12 +6,26 @@ clear all
     'C:\Users\Simon\Dropbox\PhD\Flight tests\*.csv','MAVLink csv file',...
     'MultiSelect','on');
 
-for f=1:size(FileName,2)
+if iscell(FileName)
+    numfiles = size(FileName,2);
+else
+    numfiles = 1;
+end
+
+for f=1:numfiles
     timeStart = cputime;
-    fid = fopen(strcat(PathName,FileName{f}));
-    file = textscan(fid,'%s','delimiter','\n');
-    fclose(fid);
-    disp(strcat('Decoding ./',FileName{f}));
+    
+    if iscell(FileName)
+        fid = fopen(strcat(PathName,FileName{f}));
+        file = textscan(fid,'%s','delimiter','\n');
+        fclose(fid);
+        disp(strcat('Decoding ./',FileName{f}));
+    else
+        fid = fopen(strcat(PathName,FileName));
+        file = textscan(fid,'%s','delimiter','\n');
+        fclose(fid);
+        disp(strcat('Decoding ./',FileName));
+    end
     %clear fid PathName FileName FilterIndex ans
 
     %% Decode file & packetise
@@ -59,8 +73,8 @@ for f=1:size(FileName,2)
 
             for z=9:2:size(thisline,2)
                 try
-                    out.(name).(thisline{z}){y,1} = time;
-                    out.(name).(thisline{z}){y,2} = str2double(thisline(z+1));
+                    out.(name).(thisline{z})(y,1) = double(time);
+                    out.(name).(thisline{z})(y,2) = str2double(thisline(z+1));
                 catch
                     continue;
                 end
@@ -72,9 +86,13 @@ for f=1:size(FileName,2)
     disp(strcat('Packets decoded (',num2str(timeDecode,0),'secs)'));
 
     %% Save
-    save(strrep(FileName{f},'csv','mat'),'-struct','out');
-    disp(strcat('Saved to ./',FileName{f},', (',num2str(cputime-timeStart,0),'secs total)'));
-
+    if iscell(FileName)
+        save(strrep(FileName{f},'csv','mat'),'-struct','out');
+        disp(strcat('Saved to ./',FileName{f},', (',num2str(cputime-timeStart,0),'secs total)'));
+    else
+        save(strrep(FileName,'csv','mat'),'-struct','out');
+        disp(strcat('Saved to ./',FileName,', (',num2str(cputime-timeStart,0),'secs total)'));
+    end
 %% End
 end
 clear all
