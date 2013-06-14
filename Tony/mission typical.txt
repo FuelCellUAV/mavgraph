@@ -1,0 +1,14 @@
+m1 = {  'Phase',    'Throttle', 'Duration';
+        'Start',    0,          0;
+        'Takeoff',  100,        1;
+        'Circuit',  30,         2; 
+        'Climb',    100,        10;
+        'Cruise',   75,         45;
+        'Loiter',   30,         180;
+        'Cruise',   75,         45;
+        'Descent',  0,          10;
+        'Circuit',  30,         2;
+        'Land',     0,          1;
+        'Go-around',100,        3;
+        'Land',     0,          1;
+        };
