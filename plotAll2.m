@@ -34,7 +34,7 @@ try
     axis tight;
     set(gca,'FontSize',14);
     ylabel('Throttle /%', 'FontSize', 16);
-    xlabel('Time (zulu)', 'FontSize', 16);
+    xlabel('Time (UTC)', 'FontSize', 16);
     title('Throttle', 'FontSize', 20);
 catch
     disp 'Error plotting throttle'
@@ -62,7 +62,7 @@ try
     axis tight;
     set(gca,'FontSize',14);
     ylabel('Power /W', 'FontSize', 16);
-    xlabel('Time (zulu)', 'FontSize', 16);
+    xlabel('Time (UTC)', 'FontSize', 16);
     title('Power', 'FontSize', 20);  
 catch
     disp 'Error plotting power'
@@ -81,7 +81,7 @@ try
     axis tight;
     set(gca,'FontSize',14);
     ylabel('Voltage /V', 'FontSize', 16);
-    xlabel('Time (zulu)', 'FontSize', 16);
+    xlabel('Time (UTC)', 'FontSize', 16);
     title('Voltage', 'FontSize', 20);
 catch
     disp 'Error plotting voltage'
@@ -100,7 +100,7 @@ try
     axis tight;
     set(gca,'FontSize',14);
     ylabel('Current /A', 'FontSize', 16);
-    xlabel('Time (zulu)', 'FontSize', 16);
+    xlabel('Time (UTC)', 'FontSize', 16);
     title('Current', 'FontSize', 20);
 catch
     disp 'Error plotting current'
