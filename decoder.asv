@@ -62,7 +62,7 @@ for f=1:numfiles
 
             % time of row in serial format
             try
-                time = datenum(strrep(thisline(1,1),'T',' '),'yyyy-mm-dd HH:MM:SS.FFF');
+                time = datenum(strrep(thisline(1,1),'T',' '),'yyyy-mm-dd);
                 name = thisline{8};
                 if size(name,2) <= 1
                     continue
