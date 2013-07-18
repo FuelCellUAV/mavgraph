@@ -3,7 +3,7 @@ clear all
 
 %% Get MAVLink .mat file
 [FileName,PathName,FilterIndex] = uigetfile(...
-    'C:\Users\Simon\Documents\GitHub\mavgraph\*.mat','MAVLink mat file');
+    'C:\Users\Simon\Documents\GitHub\mavgraph\*.mat','MAVLink mat file',datestr(date,'yyyy-mm-dd'));
 if FileName <= 0
     return;
 end
